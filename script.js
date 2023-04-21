@@ -39,7 +39,68 @@ function generatePassword() {
     var specialCase = prompt("Should your password include special characters?" , "Yes or No");
   }
 
+  
 
+    // Set variables to pull from based on choices
+
+  var lowercaseCharacters = "";
+  if (lowerCase.toLowerCase() === "yes") {
+    lowercaseCharacters = "abcdefghijklmnopqrstuvwxyz";
+  }
+  
+  var uppercaseCharacters = "";
+  if (upperCase.toLowerCase() === "yes") {
+    uppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  }
+  
+  var numberCharacters = "";
+  if (numbersCase.toLowerCase() === "yes") {
+    numberCharacters = "0123456789";
+  }
+
+  var specialCharacters = "";
+  if (specialCase.toLowerCase() === "yes") {
+    specialCharacters = "!@#$%^&*()_+-=[]{};:,.<>/?";
+  }
+  
+  //Use incase none of the options is true
+  if (lowercaseCharacters === "" && uppercaseCharacters === "" && numberCharacters === "" && specialCharacters === "") {
+    alert("Please select at least one character set");
+    return "";
+  }
+  //defines variables for the loop
+  var characters = lowercaseCharacters + uppercaseCharacters + numberCharacters + specialCharacters;
+
+  var password = "";
+
+  hasLowercase = false;
+  hasUppercase = false;
+  hasNumber = false;
+  hasSpecialChar = false;
+  
+//This loop makes sure all elements are met and continues to reginerate if it fails the check
+  while (!(hasLowercase && hasUppercase && hasNumber && hasSpecialChar)) {
+
+    for (var i = 0; i < lengthParse; i++) {
+      var char = characters.charAt(Math.floor(Math.random() * characters.length));
+      password += char;
+  
+      if (lowercaseCharacters.includes(char)) {
+        hasLowercase = true;
+      } else if (uppercaseCharacters.includes(char)) {
+        hasUppercase = true;
+      } else if (numberCharacters.includes(char)) {
+        hasNumber = true;
+      } else if (specialCharacters.includes(char)) {
+        hasSpecialChar = true;
+      }
+  
+      if (hasLowercase && hasUppercase && hasNumber && hasSpecialChar) {
+        break;
+      }
+    }
+  }
+  return password;
 }
 
 var generateBtn = document.querySelector("#generate");
